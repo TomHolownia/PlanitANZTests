@@ -54,7 +54,7 @@ public class RepaymentPage extends BasePage<RepaymentPage> {
         return this;
     }
 
-    public RepaymentPage setInterestTermLength() {
+    public RepaymentPage setInterestTerm() {
         driver.findElement(By.className("select--i-term")).click();// Needs further work for dropdown box
         return this;
     }
@@ -64,8 +64,17 @@ public class RepaymentPage extends BasePage<RepaymentPage> {
         return this;
     }
 
-    public RepaymentPage setInterestRate(double interest) {
+    public RepaymentPage setInterestRate(String interest) {
         driver.findElement(By.id("interest")).sendKeys(interest);
+        return this;
+    }
+
+    public double getComparisonRate() {
+        return Double.parseDouble(driver.findElement(By.id("comparison")).getText().replace("%", ""));
+    }
+
+    public RepaymentPage setLoanTerm() {
+        driver.findElement(By.className("repay__question__answer")).click();// Needs further work for dropdown box
         return this;
     }
 
