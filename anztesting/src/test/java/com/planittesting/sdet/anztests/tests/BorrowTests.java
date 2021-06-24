@@ -14,10 +14,8 @@ public class BorrowTests extends BaseTest {
             .setIncome("100000")
             .setLivingExpenses("2000")
             .clickWorkOutBorrowButton();
-
-        // Wait two seconds for Animation
-        borrowEstimate.wait(1500);
-
+        
+        borrowEstimate.wait(2000);
         assertEquals(646000, borrowEstimate.getBorrowAmount());
 
     }

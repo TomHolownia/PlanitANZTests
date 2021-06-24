@@ -19,4 +19,18 @@ public class DepositTests extends BaseTest {
 
     }
 
+    @Test
+    public void validateBorrowCalculationsChangeStateNewLand() {
+
+        var depositPage = open(HomePage.class)
+        .clickHomeLoanDepositCaluclator()
+        .setEstimatedPropertyValue("250000")
+        .setHowMuchDoYouHaveNow("50000")
+        .clickStateDropDown("New South Wales")
+        .clickEstablishedHomeDropDown("Land to construct");
+
+        assertEquals(1908, depositPage.getEstimatedCosts());
+        assertEquals(58092, depositPage.getEstimatedDeposit());
+
+    }
 }

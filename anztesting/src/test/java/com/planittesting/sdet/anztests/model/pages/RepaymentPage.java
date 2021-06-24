@@ -2,6 +2,8 @@ package com.planittesting.sdet.anztests.model.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RepaymentPage extends BasePage<RepaymentPage> {
 
@@ -10,47 +12,89 @@ public class RepaymentPage extends BasePage<RepaymentPage> {
     }
 
     public RepaymentPage setLoanAmount(String loanAmount) {
-        driver.findElement(By.id("loanAmount")).sendKeys(loanAmount);
-        return this;
-    }
-
-    public RepaymentPage setAsInvestmentProperty() {
-        driver.findElement(By.id("investment_type_investment")).click();
+        var element = driver.findElement(By.id("loanAmount"));
+        element.clear();
+        element.sendKeys(loanAmount);
         return this;
     }
 
     public RepaymentPage setAsResidentialProperty() {
-        driver.findElement(By.id("investment_type_home")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("investment_type_home")) {
+                element.click();
+            }
+        }
+        return this;
+    }
+
+    public RepaymentPage setAsInvestmentProperty() {
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("investment_type_investment")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsPrincipleInterest() {
-        driver.findElement(By.id("principal_interest_pi")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("principal_interest_pi")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsInterestOnly() {
-        driver.findElement(By.id("principal_interst_i")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("principal_interst_i")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsVariableRate() {
-        driver.findElement(By.id("variable_fixed_variable")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("variable_fixed_variable")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsFixedRate() {
-        driver.findElement(By.id("variable_fixed_fixed")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("variable_fixed_fixed")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsPackagedLoan() {
-        driver.findElement(By.id("package_loan_yes")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("package_loan_yes")) {
+                element.click();
+            }
+        }
         return this;
     }
 
     public RepaymentPage setAsNonPackagedLoan() {
-        driver.findElement(By.id("package_loan_no")).click();
+        var elements = driver.findElements(By.className("btn"));
+        for(WebElement element : elements) {
+            if (element.getAttribute("for") != null && element.getAttribute("for").equals("package_loan_no")) {
+                element.click();
+            }
+        }
         return this;
     }
 
@@ -60,12 +104,14 @@ public class RepaymentPage extends BasePage<RepaymentPage> {
     }
 
     public RepaymentPage setLoanType() {
-        driver.findElement(By.className("type")).click();// Needs further work for dropdown box
+        new WebDriverWait(driver, 10).until(d -> d.findElement(By.className("type")).isEnabled());// Needs further work for dropdown box
         return this;
     }
 
     public RepaymentPage setInterestRate(String interest) {
-        driver.findElement(By.id("interest")).sendKeys(interest);
+        var element = driver.findElement(By.id("interest"));
+        element.clear();
+        element.sendKeys(interest);
         return this;
     }
 
@@ -79,6 +125,7 @@ public class RepaymentPage extends BasePage<RepaymentPage> {
     }
 
     public double getEstimatedRepayments() {
+        wait(100); //OMG
         var estimatedPayments = driver.findElement(By.className("repay__result__text__amount"))
             .getText()
             .replace("$", "")

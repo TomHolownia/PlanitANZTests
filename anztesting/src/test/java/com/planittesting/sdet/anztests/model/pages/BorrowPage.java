@@ -1,9 +1,7 @@
 package com.planittesting.sdet.anztests.model.pages;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BorrowPage extends BasePage<BorrowPage> {
 
@@ -12,6 +10,7 @@ public class BorrowPage extends BasePage<BorrowPage> {
     }
 
     public BorrowPage setIncome(String income) {
+        driver.findElement(By.cssSelector("[aria-labelledby='q2q1']")).clear();
         driver.findElement(By.cssSelector("[aria-labelledby='q2q1']")).sendKeys(income);
         return this;
     }
@@ -22,6 +21,7 @@ public class BorrowPage extends BasePage<BorrowPage> {
     }
 
     public BorrowPage clickWorkOutBorrowButton() {
+       
         driver.findElement(By.id("btnBorrowCalculater")).click();
         return this;
     }
